@@ -234,7 +234,9 @@ async def read_page_details(page_id: str) -> str:
         
         data = response.json()
         lines = [line.get("text", "") for line in data.get("lines", [])]
-        return "\n".join(lines)
+        relateds_raw= data.get("relatedPages", {}).get("links1hop",[])
+        relateds = [f"id:{related_raw.id}, title:{related_raw.title}" for related_raw in relateds_raw]
+        return "\n".join(lines) + "\n\nRelateds:[\n" + ",\n".join(relateds) + "\n]"
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
