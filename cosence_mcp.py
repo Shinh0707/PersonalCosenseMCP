@@ -214,7 +214,7 @@ async def read_page_details(page_id: str) -> str:
     @brief Retrieves the full content of a specific page using its unique pageID.
     @details Call this tool after identifying a relevant page from search_page or search_page_fulltext.
     @param page_id [str] The unique identification string (pageID) of the target page.
-    @return [str] The full markdown/text content of the requested page.
+    @return [str] The full markdown/text content of the requested page and related pages.
     """
     db_result = collection.get(ids=[page_id], include=["metadatas"])
     if not db_result["metadatas"]:
